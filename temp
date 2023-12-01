@@ -1,0 +1,28 @@
+#include <iostream>
+#include <string>
+#include <fstream>
+#include <sstream>
+#include <unordered_map>
+#include <cctype>
+#include <regex>
+#include <vector>
+using namespace std;
+
+
+void MergeSortFunction(vector<string> &DataSetVector,int left, int right)
+{
+
+}
+
+
+void MergeSort(unordered_map<string,vector<string>> &DataSetMap)
+{
+    vector<string> merge_sort_vector;
+    cout << DataSetMap.size() << endl;
+    for(auto it = DataSetMap.begin(); it != DataSetMap.end(); ++it)
+    {
+        merge_sort_vector.push_back(it->first);
+    }
+
+    MergeSortFunction(merge_sort_vector,0,merge_sort_vector.size() - 1);
+}
