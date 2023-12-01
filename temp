@@ -417,21 +417,15 @@ public:
         int price1value;
         int price2value;
 
-        auto it = DataSetMap.find(house1);
-        if (it != DataSetMap.end() && !it->second.empty()) {
-            string score1 = it->second[0];
-            score1value = stoi(score1);
-            string price1 = it->second[1];
-            price1value = stoi(price1);
+        string score1 = DataSetMap[house1][0];
+        score1value = stoi(score1);
+        string price1 = DataSetMap[house1][1];;
+        price1value = stoi(price1);
 
-        }
-        auto it1 = DataSetMap.find(house2);
-        if (it1 != DataSetMap.end() && !it1->second.empty()) {
-            string score2 = it1->second[0];
-            score2value = stoi(score2);
-            string price2 = it1->second[1];
-            price2value = stoi(price2);
-        }
+        string score2 = DataSetMap[house2][0];
+        score2value = stoi(score2);
+        string price2 = DataSetMap[house2][1];;
+        price2value = stoi(price2);
 
 
         if (score1value > score2value) {
