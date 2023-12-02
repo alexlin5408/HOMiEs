@@ -14,6 +14,8 @@ using namespace std;
 class Homes_Sorter{
 private:
     unordered_map<string,vector<string>> dataset;
+    vector<string> quick_rankings;
+    vector<string> merge_rankings;
     float min_acres = 0.00;
     float max_acres = 0.00;
     int max_homesize = 0;
@@ -45,8 +47,8 @@ private:
     bool valid_price_importance = false;
     string State;
     string city;
-    int time_merge;
-    int time_quick;
+    long long time_merge;
+    long long time_quick;
 
 public:
 
@@ -384,12 +386,12 @@ public:
         int left_index = left - 1;
         for (int i = left; i < right; i++)
         {
-            if (stoi(dataset[houses[i]][0]) < stoi((dataset[pivot][0]))) //compare house scores and if duplicate score compare house price
+            if (stoi(dataset[houses[i]][0]) <= stoi((dataset[pivot][0]))) //compare house scores and if duplicate score compare house price
             {
                 left_index++;
                 swap(houses, left_index, right);
             }
-            else if (stoi (dataset[houses[i]][1]) < stoi((dataset[pivot][1])))
+            else if (stoi (dataset[houses[i]][1]) <= stoi((dataset[pivot][1])))
             {
                 left_index++;
                 swap(houses, left_index, right);
@@ -407,13 +409,13 @@ public:
     void QuickSortPrint()
     {
         auto start_time = chrono::high_resolution_clock::now();
-        vector<string> houseranking = quicksort();
+        quick_rankings = quicksort();
         auto end_time = chrono::high_resolution_clock::now();
         auto duration = chrono::duration_cast<chrono::microseconds>(end_time - start_time).count();
         time_quick = duration;
         string house;
         for (int i = 0; i < 10; i++) {
-            house = houseranking[i];
+            house = quick_rankings[i];
             cout << house << endl;
             auto it = dataset.find(house);
             if (it != dataset.end() && !it->second.empty()) {
@@ -437,7 +439,7 @@ public:
             }
 
         }
-        cout << "Time taken by the function: " << time_quick << " microseconds" << endl;
+        cout << "Time taken by the function: " << duration << " microseconds" << endl;
     }
 
     vector<string> MergeSort()
@@ -533,14 +535,14 @@ public:
     void MergeSortPrint()
     {
         auto start_time = chrono::high_resolution_clock::now();
-        vector<string> templist= MergeSort();
+        merge_rankings = MergeSort();
         auto end_time = chrono::high_resolution_clock::now();
         auto duration = chrono::duration_cast<chrono::microseconds>(end_time - start_time).count();
         time_merge = duration;
         for(int i = 0; i < 10; i++)
         {
             //Order is: Home score, Price, State, City, Num of Beds, Num of Baths, Acres, and home size.
-            string housenum = templist[i];
+            string housenum = merge_rankings[i];
             cout << housenum << endl;
             auto it = dataset.find(housenum);
             if (it != dataset.end() && !it->second.empty()) {
@@ -563,9 +565,22 @@ public:
                 cout << endl;
             }
         }
-        cout << "Time taken by the function: " << time_merge << " microseconds" << endl;
+        cout << "Time taken by the function: " << duration << " microseconds" << endl;
+    }
+    void compare_results()
+    {
+        if (merge_rankings == quick_rankings)
+        {
+            cout << "yippee it worked" << endl;
+        }
+        else
+        {
+            cout << "failure" << endl;
+        }
     }
 };
+
+
 
 int main(){
     Homes_Sorter T;
@@ -605,5 +620,7 @@ int main(){
     cout << endl;
     cout << "Quick Sort Results: " << endl;
     T.QuickSortPrint();
+    cout << endl;
+    T.compare_results();
     return 0;
 }
