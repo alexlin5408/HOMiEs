@@ -45,6 +45,7 @@ private:
     bool valid_price_importance = false;
     string State;
     string city;
+    int time_merge;
 
 public:
 
@@ -449,10 +450,14 @@ public:
     void MergeSortPrint()
     {
         auto start_time = chrono::high_resolution_clock::now();
+        vector<string> templist= MergeSort();
+        auto end_time = chrono::high_resolution_clock::now();
+        auto duration = chrono::duration_cast<chrono::microseconds>(end_time - start_time).count();
+        duration = time_merge;
         for(int i = 0; i < 10; i++)
         {
             //Order is: Home score, Price, State, City, Num of Beds, Num of Baths, Acres, and home size.
-            string housenum = MergeSort()[i];
+            string housenum = templist[i];
             cout << housenum << endl;
             auto it = dataset.find(housenum);
             if (it != dataset.end() && !it->second.empty()) {
@@ -475,8 +480,6 @@ public:
                 cout << endl;
             }
         }
-        auto end_time = chrono::high_resolution_clock::now();
-        auto duration = chrono::duration_cast<chrono::microseconds>(end_time - start_time).count();
         cout << "Time taken by the function: " << duration << " microseconds" << endl;
     }
 };
