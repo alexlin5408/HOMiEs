@@ -14,8 +14,6 @@ using namespace std;
 class Homes_Sorter{
 private:
     unordered_map<string,vector<string>> dataset;
-    vector<string> quick_rankings;
-    vector<string> merge_rankings;
     float min_acres = 0.00;
     float max_acres = 0.00;
     int max_homesize = 0;
@@ -47,11 +45,12 @@ private:
     bool valid_price_importance = false;
     string State;
     string city;
+    vector<string> quick_rankings;
+    vector<string> merge_rankings;
     long long time_merge;
     long long time_quick;
-
 public:
-
+    
     void user_preference(){
         static const regex tester("^[0-9]*\\.?[0-9]+([eE][-+]?[0-9]+)?$");
         while(valid_state == false){
@@ -366,9 +365,7 @@ public:
         {
             houses.push_back(itr->first);
         }
-        int right = houses.size() - 1;
-        int left = 0;
-        quicksort_helper(houses, left, right);
+        quicksort_helper(houses, 0, houses.size() - 1);
         return houses;
     }
     void quicksort_helper(vector<string>&houses, int left, int right)
@@ -382,23 +379,47 @@ public:
     }
     int partition(vector<string>&houses, int left, int right)
     {
-        string pivot = houses[right];
-        int left_index = left - 1;
-        for (int i = left; i < right; i++)
+        string pivot = houses[left];
+        int up = left;
+        int down = right;
+        while(up < down)
         {
-            if (stoi(dataset[houses[i]][0]) <= stoi((dataset[pivot][0]))) //compare house scores and if duplicate score compare house price
+            if (stoi(dataset[houses[up]][0]) == stoi(dataset[pivot][0]))
             {
-                left_index++;
-                swap(houses, left_index, right);
+                while(up < right && stoi(dataset[houses[up]][1]) >= stoi(dataset[pivot][1]))
+                {
+                    up++;
+                }
             }
-            else if (stoi (dataset[houses[i]][1]) <= stoi((dataset[pivot][1])))
+            else
             {
-                left_index++;
-                swap(houses, left_index, right);
+                while(up < right && stoi(dataset[houses[up]][0]) >= stoi(dataset[pivot][0]))
+                {
+                    up++;
+                }
+            }
+            if (stoi(dataset[houses[down]][0]) <= stoi(dataset[pivot][0]))
+            {
+                while(down > left && stoi(dataset[houses[down]][1]) <= stoi(dataset[pivot][1]))
+                {
+                    down--;
+                }
+            }
+            else
+            {
+                while(down > left && stoi(dataset[houses[down]][0]) <= stoi(dataset[pivot][0]))
+                {
+                    down--;
+                }
+            }
+            
+            if(up < down)
+            {
+                swap(houses, up, down);
             }
         }
-        swap(houses, left_index + 1, right);
-        return left_index + 1;
+        swap(houses, left, down);
+        return down;
     }
     void swap(vector<string>&houses, int left, int right)
     {
@@ -414,11 +435,13 @@ public:
         auto duration = chrono::duration_cast<chrono::microseconds>(end_time - start_time).count();
         time_quick = duration;
         string house;
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 10; i++) 
+        {
             house = quick_rankings[i];
             cout << house << endl;
             auto it = dataset.find(house);
-            if (it != dataset.end() && !it->second.empty()) {
+            if (it != dataset.end() && !it->second.empty()) 
+            {
                 string score_string = it->second[0];
                 cout << "Score: " << score_string << endl;
                 string price_string = it->second[1];
@@ -437,7 +460,6 @@ public:
                 cout << "Square Footage of Home: " << house_size_string << endl;
                 cout << endl;
             }
-
         }
         cout << "Time taken by the function: " << duration << " microseconds" << endl;
     }
@@ -452,7 +474,6 @@ public:
         MergeSortFunction(dataset,merge_sort_vector,0,merge_sort_vector.size() - 1);
         return merge_sort_vector;
     }
-
     void MergeSortFunction(unordered_map<string,vector<string>> &DataSetMap,vector<string> &DataSetVector,int left, int right)
     {
         if(left < right)
@@ -465,7 +486,6 @@ public:
             HelperMerge(DataSetMap,DataSetVector,left,mid,right);
         }
     }
-
     void HelperMerge(unordered_map<string,vector<string>> &DataSetMap,vector<string>& Houses, int left, int mid, int right)
     {
         int n1 = mid - left + 1;
@@ -495,7 +515,6 @@ public:
 
 
     }
-
     bool compareHouses(unordered_map<string,vector<string>> &DataSetMap,string &house1, string &house2) {
 
         int score1value;
@@ -531,7 +550,6 @@ public:
             }
         }
     }
-
     void MergeSortPrint()
     {
         auto start_time = chrono::high_resolution_clock::now();
@@ -569,6 +587,10 @@ public:
     }
     void compare_results()
     {
+        for (auto itr = dataset.begin(); itr != dataset.end(); itr++)
+        {
+            cout << itr->first << " Score: " << itr->second[0] << " Price: " << itr->second[1] << endl;
+        }
         if (merge_rankings == quick_rankings)
         {
             cout << "yippee it worked" << endl;
@@ -579,8 +601,6 @@ public:
         }
     }
 };
-
-
 
 int main(){
     Homes_Sorter T;
@@ -615,10 +635,8 @@ int main(){
         }
         T.insert(state_string, city_string,num_bathrooms_string, num_bedrooms_string, acres_string,house_size_string, price_string,temp_counter);
     }
-    cout << "Merge Sort Results: " << endl;
     T.MergeSortPrint();
     cout << endl;
-    cout << "Quick Sort Results: " << endl;
     T.QuickSortPrint();
     cout << endl;
     T.compare_results();
