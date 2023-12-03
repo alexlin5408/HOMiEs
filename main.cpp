@@ -145,10 +145,11 @@ public:
             }
             insert(state_string, city_string,num_bathrooms_string, num_bedrooms_string, acres_string,house_size_string, price_string,temp_counter);
         }
+        MergeSort();
     }
 
     void results(){
-      filter_data();
+        filter_data();
       sf::RenderWindow results_window(sf::VideoMode(1200, 1000), "HOMIE");
       sf::RectangleShape results_rect;
       results_rect.setSize(sf::Vector2f(1200, 1000));
@@ -190,6 +191,26 @@ public:
         Noresults.setOrigin(NoresultsRect.left + NoresultsRect.width / 2.0f,NoresultsRect.top  + NoresultsRect.height / 2.0f);
         Noresults.setPosition(results_window.getSize().x/2.0f,results_window.getSize().y/2.0f);
 
+        sf::Text Merge_Sort_TIME;
+        Merge_Sort_TIME.setString("Merge Sort Time: ");
+        Merge_Sort_TIME.setFont(font);
+        Merge_Sort_TIME.setCharacterSize(20);
+        Merge_Sort_TIME.setFillColor(sf::Color::White);
+        Merge_Sort_TIME.setStyle(sf::Text::Bold);
+        sf::FloatRect Merge_Sort_TIMERect = Merge_Sort_TIME.getLocalBounds();
+        Merge_Sort_TIME.setOrigin(Merge_Sort_TIMERect.left + Merge_Sort_TIMERect.width / 2.0f,Merge_Sort_TIMERect.top  + Merge_Sort_TIMERect.height / 2.0f);
+        Merge_Sort_TIME.setPosition(results_window.getSize().x/2.0f - 425,results_window.getSize().y/2.0f + 230);
+
+        sf::Text Quick_Sort_TIME;
+        Quick_Sort_TIME.setString("Quick Sort Time: ");
+        Quick_Sort_TIME.setFont(font);
+        Quick_Sort_TIME.setCharacterSize(20);
+        Quick_Sort_TIME.setFillColor(sf::Color::White);
+        Quick_Sort_TIME.setStyle(sf::Text::Bold);
+        sf::FloatRect Quick_Sort_TIME_TIMERect = Quick_Sort_TIME.getLocalBounds();
+        Quick_Sort_TIME.setOrigin(Quick_Sort_TIME_TIMERect.left + Quick_Sort_TIME_TIMERect.width / 2.0f,Quick_Sort_TIME_TIMERect.top  + Quick_Sort_TIME_TIMERect.height / 2.0f);
+        Quick_Sort_TIME.setPosition(results_window.getSize().x/2.0f - 425,results_window.getSize().y/2.0f + 200);
+
         sf::Texture Reset_Button;
         Reset_Button.loadFromFile("Files/Images/HOMERESET_B.png");
         sf::Sprite Reset_Button_image(Reset_Button);
@@ -205,11 +226,85 @@ public:
         Homeless_IMAGE_image.setPosition(results_window.getSize().x/2.0f,results_window.getSize().y/2.0f);
 
         sf::Texture House_1;
-        House_1.loadFromFile("Files/Images/Homeless.PNG");
+        House_1.loadFromFile("Files/Images/House_1.jpg");
         sf::Sprite House_1image(House_1);
         sf::FloatRect House_1Bounds = House_1image.getLocalBounds();
-        Homeless_IMAGE_image.setOrigin(Reset_Button_Bounds.left + Reset_Button_Bounds.width / 2.0f,Reset_Button_Bounds.top  + Reset_Button_Bounds.height / 2.0f);
-        Homeless_IMAGE_image.setPosition(results_window.getSize().x/2.0f,results_window.getSize().y/2.0f);
+        House_1image.setOrigin(House_1Bounds.left + House_1Bounds.width / 2.0f,House_1Bounds.top  + House_1Bounds.height / 2.0f);
+        House_1image.setPosition(results_window.getSize().x/2.0f - 450,results_window.getSize().y/2.0f - 250);
+
+        sf::Texture House_2;
+        House_2.loadFromFile("Files/Images/House_2.jpg");
+        sf::Sprite House_2image(House_2);
+        sf::FloatRect House_2Bounds = House_2image.getLocalBounds();
+        House_2image.setOrigin(House_2Bounds.left + House_2Bounds.width / 2.0f,House_2Bounds.top  + House_2Bounds.height / 2.0f);
+        House_2image.setPosition(results_window.getSize().x/2.0f - 450,results_window.getSize().y/2.0f - 75);
+
+        sf::Texture House_3;
+        House_3.loadFromFile("Files/Images/House_3.jpeg");
+        sf::Sprite House_3image(House_3);
+        sf::FloatRect House_3Bounds = House_3image.getLocalBounds();
+        House_3image.setOrigin(House_3Bounds.left + House_3Bounds.width / 2.0f,House_3Bounds.top  + House_3Bounds.height / 2.0f);
+        House_3image.setPosition(results_window.getSize().x/2.0f - 450,results_window.getSize().y/2.0f + 100);
+
+        sf::Text House_1_Top;
+        House_1_Top.setString("");
+        House_1_Top.setFont(font);
+        House_1_Top.setCharacterSize(14);
+        House_1_Top.setFillColor(sf::Color::White);
+        House_1_Top.setStyle(sf::Text::Bold);
+        sf::FloatRect House_1_TopRect = House_1_Top.getLocalBounds();
+        House_1_Top.setOrigin(House_1_TopRect.left + House_1_TopRect.width / 2.0f,House_1_TopRect.top  + House_1_TopRect.height / 2.0f);
+        House_1_Top.setPosition(results_window.getSize().x/2.0f - 350,results_window.getSize().y/2.0f - 280);
+
+        sf::Text House_1_Price;
+        House_1_Price.setString("");
+        House_1_Price.setFont(font);
+        House_1_Price.setCharacterSize(20);
+        House_1_Price.setFillColor(sf::Color::White);
+        House_1_Price.setStyle(sf::Text::Bold);
+        sf::FloatRect House_1_PriceRect = House_1_Price.getLocalBounds();
+        House_1_Price.setOrigin(House_1_TopRect.left + House_1_TopRect.width / 2.0f,House_1_TopRect.top  + House_1_TopRect.height / 2.0f);
+        House_1_Price.setPosition(results_window.getSize().x/2.0f - 350,results_window.getSize().y/2.0f - 250);
+
+        sf::Text House_2_Top;
+        House_2_Top.setString("");
+        House_2_Top.setFont(font);
+        House_2_Top.setCharacterSize(14);
+        House_2_Top.setFillColor(sf::Color::White);
+        House_2_Top.setStyle(sf::Text::Bold);
+        sf::FloatRect House_2_TopRect = House_2_Top.getLocalBounds();
+        House_2_Top.setOrigin(House_1_TopRect.left + House_1_TopRect.width / 2.0f,House_1_TopRect.top  + House_1_TopRect.height / 2.0f);
+        House_2_Top.setPosition(results_window.getSize().x/2.0f - 350,results_window.getSize().y/2.0f - 105);
+
+        sf::Text House_2_Price;
+        House_2_Price.setString("");
+        House_2_Price.setFont(font);
+        House_2_Price.setCharacterSize(20);
+        House_2_Price.setFillColor(sf::Color::White);
+        House_2_Price.setStyle(sf::Text::Bold);
+        sf::FloatRect House_2_PriceRect = House_2_Price.getLocalBounds();
+        House_2_Price.setOrigin(House_1_TopRect.left + House_1_TopRect.width / 2.0f,House_1_TopRect.top  + House_1_TopRect.height / 2.0f);
+        House_2_Price.setPosition(results_window.getSize().x/2.0f - 350,results_window.getSize().y/2.0f - 75);
+
+        sf::Text House_3_Top;
+        House_3_Top.setString("");
+        House_3_Top.setFont(font);
+        House_3_Top.setCharacterSize(14);
+        House_3_Top.setFillColor(sf::Color::White);
+        House_3_Top.setStyle(sf::Text::Bold);
+        sf::FloatRect House_3_TopRect = House_3_Top.getLocalBounds();
+        House_3_Top.setOrigin(House_1_TopRect.left + House_1_TopRect.width / 2.0f,House_1_TopRect.top  + House_1_TopRect.height / 2.0f);
+        House_3_Top.setPosition(results_window.getSize().x/2.0f - 350,results_window.getSize().y/2.0f + 70);
+
+        sf::Text House_3_Price;
+        House_3_Price.setString("");
+        House_3_Price.setFont(font);
+        House_3_Price.setCharacterSize(20);
+        House_3_Price.setFillColor(sf::Color::White);
+        House_3_Price.setStyle(sf::Text::Bold);
+        sf::FloatRect House_3_PriceRect = House_3_Price.getLocalBounds();
+        House_3_Price.setOrigin(House_1_TopRect.left + House_1_TopRect.width / 2.0f,House_1_TopRect.top  + House_1_TopRect.height / 2.0f);
+        House_3_Price.setPosition(results_window.getSize().x/2.0f - 350,results_window.getSize().y/2.0f + 100);
 
         // Main loop
         while (results_window.isOpen()) {
@@ -217,13 +312,63 @@ public:
             while (results_window.pollEvent(event)) {
                 if (event.type == sf::Event::Closed)
                     results_window.close();
+                if (event.type == sf::Event::MouseButtonPressed){
+                    if (event.key.code == sf::Mouse::Left) {
+                        sf::Vector2i pos = sf::Mouse::getPosition(results_window);
+                        if (Reset_Button_image.getGlobalBounds().contains(static_cast<float>(pos.x), static_cast<float>(pos.y))){
+                            reset();
+                            results_window.close();
+                            main_screen();
+                        }
+                    }
+                }
             }
             results_window.clear();
             results_window.draw(results_rect);
             results_window.draw(Title);
-            results_window.draw(Results_page);
             results_window.draw(Reset_Button_image);
-            if(merge_sort_vector.size() == 0){
+            if(merge_sort_vector.size() > 0){
+                results_window.draw(Results_page);
+                results_window.draw(Merge_Sort_TIME);
+                results_window.draw(Quick_Sort_TIME);
+                if(merge_sort_vector.size() == 1){
+                    House_1_Top.setString(merge_sort_vector[0] + ", " + dataset[merge_sort_vector[0]].at(3) + ", " + dataset[merge_sort_vector[0]].at(2)+ ", " + dataset[merge_sort_vector[0]].at(4) + " Bedrooms"  + ", " + dataset[merge_sort_vector[0]].at(5) + " Bathrooms" + ", " + dataset[merge_sort_vector[0]].at(7) + " Square Feet" ", " + dataset[merge_sort_vector[0]].at(6) + " Acres");
+                    House_1_Price.setString("$" + dataset[merge_sort_vector[0]].at(1));
+                    results_window.draw(House_1image);
+                    results_window.draw(House_1_Top);
+                    results_window.draw(House_1_Price);
+                }
+                else if(merge_sort_vector.size() == 2){
+                    House_1_Top.setString(merge_sort_vector[0] + ", " + dataset[merge_sort_vector[0]].at(3) + ", " + dataset[merge_sort_vector[0]].at(2)+ ", " + dataset[merge_sort_vector[0]].at(4) + " Bedrooms"  + ", " + dataset[merge_sort_vector[0]].at(5) + " Bathrooms" + ", " + dataset[merge_sort_vector[0]].at(7) + " Square Feet" ", " + dataset[merge_sort_vector[0]].at(6) + " Acres");
+                    House_1_Price.setString("$" + dataset[merge_sort_vector[0]].at(1));
+                    House_2_Top.setString(merge_sort_vector[1] + ", " + dataset[merge_sort_vector[1]].at(3) + ", " + dataset[merge_sort_vector[1]].at(2)+ ", " + dataset[merge_sort_vector[1]].at(4) + " Bedrooms"  + ", " + dataset[merge_sort_vector[1]].at(5) + " Bathrooms" + ", " + dataset[merge_sort_vector[1]].at(7) + " Square Feet" ", " + dataset[merge_sort_vector[1]].at(6) + " Acres");
+                    House_2_Price.setString("$" + dataset[merge_sort_vector[1]].at(1));
+                    results_window.draw(House_1image);
+                    results_window.draw(House_2image);
+                    results_window.draw(House_1_Top);
+                    results_window.draw(House_1_Price);
+                    results_window.draw(House_2_Top);
+                    results_window.draw(House_2_Price);
+                }
+                else if(merge_sort_vector.size() >= 3){
+                    House_1_Top.setString(merge_sort_vector[0] + ", " + dataset[merge_sort_vector[0]].at(3) + ", " + dataset[merge_sort_vector[0]].at(2)+ ", " + dataset[merge_sort_vector[0]].at(4) + " Bedrooms"  + ", " + dataset[merge_sort_vector[0]].at(5) + " Bathrooms" + ", " + dataset[merge_sort_vector[0]].at(7) + " Square Feet" ", " + dataset[merge_sort_vector[0]].at(6) + " Acres");
+                    House_1_Price.setString("$" + dataset[merge_sort_vector[0]].at(1));
+                    House_2_Top.setString(merge_sort_vector[1] + ", " + dataset[merge_sort_vector[1]].at(3) + ", " + dataset[merge_sort_vector[1]].at(2)+ ", " + dataset[merge_sort_vector[1]].at(4) + " Bedrooms"  + ", " + dataset[merge_sort_vector[1]].at(5) + " Bathrooms" + ", " + dataset[merge_sort_vector[1]].at(7) + " Square Feet" ", " + dataset[merge_sort_vector[1]].at(6) + " Acres");
+                    House_2_Price.setString("$" + dataset[merge_sort_vector[1]].at(1));
+                    House_3_Top.setString(merge_sort_vector[2] + ", " + dataset[merge_sort_vector[2]].at(3) + ", " + dataset[merge_sort_vector[2]].at(2)+ ", " + dataset[merge_sort_vector[2]].at(4) + " Bedrooms"  + ", " + dataset[merge_sort_vector[2]].at(5) + " Bathrooms" + ", " + dataset[merge_sort_vector[2]].at(7) + " Square Feet" ", " + dataset[merge_sort_vector[2]].at(6) + " Acres");
+                    House_3_Price.setString("$" + dataset[merge_sort_vector[2]].at(1));
+                    results_window.draw(House_1image);
+                    results_window.draw(House_2image);
+                    results_window.draw(House_3image);
+                    results_window.draw(House_1_Top);
+                    results_window.draw(House_1_Price);
+                    results_window.draw(House_2_Top);
+                    results_window.draw(House_2_Price);
+                    results_window.draw(House_3_Top);
+                    results_window.draw(House_3_Price);
+                }
+            }
+            else if (merge_sort_vector.size() == 0){
                 results_window.draw(Homeless_IMAGE_image);
                 results_window.draw(Noresults);
             }
@@ -699,6 +844,7 @@ public:
                     }
                     else if(valid_price_importance == false){
                         if(regex_match(currentString, importance_tester) == true){
+                            cout << "bones" << endl;
                             price_importance = stoi(currentString);
                             currentString = "";
                             valid_price_importance = true;
@@ -709,6 +855,7 @@ public:
                     }
                 }
             }
+
             window.clear();
             window.draw(rect);
             window.draw(Title);
@@ -759,7 +906,7 @@ public:
             // Draw your graphics here
             window.draw(Reset_Button_image);
             window.display();
-            if(price_importance == true){
+            if(valid_price_importance == true){
                 window.close();
                 results();
             }
@@ -836,7 +983,6 @@ public:
         string price2 = DataSetMap[house2][1];;
         price2value = stoi(price2);
 
-
         if (score1value > score2value) {
             return true;
         } else if (score1value < score2value) {
@@ -854,44 +1000,7 @@ public:
             }
         }
     }
-
-    void MergeSortPrint()
-    {
-        auto start_time = chrono::high_resolution_clock::now();
-        vector<string> templist= MergeSort();
-        auto end_time = chrono::high_resolution_clock::now();
-        auto duration = chrono::duration_cast<chrono::microseconds>(end_time - start_time).count();
-        duration = time_merge;
-        for(int i = 0; i < 10; i++)
-        {
-            //Order is: Home score, Price, State, City, Num of Beds, Num of Baths, Acres, and home size.
-            string housenum = templist[i];
-            cout << housenum << endl;
-            auto it = dataset.find(housenum);
-            if (it != dataset.end() && !it->second.empty()) {
-                string score_string = it->second[0];
-                cout << "Score: " << score_string << endl;
-                string price_string = it->second[1];
-                cout << "Price: " <<  price_string << endl;
-                string state_string = it->second[2];
-                cout << "State: " << state_string << endl;
-                string city_string = it->second[3];
-                cout << "City: " << city_string << endl;
-                string num_bedrooms_string = it->second[4];
-                cout << "Bedrooms: " << num_bedrooms_string << endl;
-                string num_bathrooms_string = it->second[5];
-                cout << "Bathroom: " << num_bathrooms_string << endl;
-                string acres_string = it->second[6];
-                cout << "Acres: " << acres_string << endl;
-                string house_size_string = it->second[7];
-                cout << "Square Footage of Home: " << house_size_string << endl;
-                cout << endl;
-            }
-        }
-        cout << "Time taken by the function: " << duration << " microseconds" << endl;
-    }
 };
-
 
 int main(){
     Homes_Sorter T;
