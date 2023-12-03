@@ -157,9 +157,7 @@ public:
         quicksort();
     }
 
-    void results()
-    //function that displays the results of the data through SFML
-    {
+    void results(){
         filter_data();
         sf::RenderWindow results_window(sf::VideoMode(1200, 1000), "HOMIE");
         sf::RectangleShape results_rect;
@@ -317,7 +315,6 @@ public:
         House_3_Price.setOrigin(House_1_TopRect.left + House_1_TopRect.width / 2.0f,House_1_TopRect.top  + House_1_TopRect.height / 2.0f);
         House_3_Price.setPosition(results_window.getSize().x/2.0f - 350,results_window.getSize().y/2.0f + 100);
 
-        // Main loop
         while (results_window.isOpen()) {
             sf::Event event;
             while (results_window.pollEvent(event)) {
