@@ -50,226 +50,247 @@ private:
     long long time_merge;
     long long time_quick;
 public:
-    
-    void user_preference(){
+    void user_preference()
+    {
         static const regex tester("^[0-9]*\\.?[0-9]+([eE][-+]?[0-9]+)?$");
-        while(valid_state == false){
+        while(valid_state == false)
+        {
             cout << "Available States: Pennsylvania, New Jersey, New York" << endl;
             cout << "Enter a State: ";
             getline(std::cin, State);
-            if(State == "Pennsylvania" || State == "New Jersey" || State == "New York"){
+            if(State == "Pennsylvania" || State == "New Jersey" || State == "New York")
+            {
                 valid_state = true;
             }
-            else{
+            else
+            {
                 cout << "Invalid State" << endl;
             }
         }
-
-
-        while(valid_bath_min == false){
+        while(valid_bath_min == false)
+        {
             cout << "Mininum number of bathrooms: ";
             string temp;
             cin >> temp;
-            if(regex_match(temp, tester) == true){
+            if(regex_match(temp, tester) == true)
+            {
                 bathroom_min = stod(temp);
                 valid_bath_min = true;
             }
-            else{
+            else
+            {
                 cout << "Invalid Input" << endl;
             }
         }
-
-
         while(valid_bath_max == false){
             cout << "Maximum number of bathrooms: ";
             string temp;
             cin >> temp;
-            if(regex_match(temp, tester) == true){
+            if(regex_match(temp, tester) == true)
+            {
                 bathroom_max = stod(temp);
-                if(bathroom_max >= bathroom_min){
+                if(bathroom_max >= bathroom_min)
+                {
                     valid_bath_max = true;
                 }
-                else{
+                else
+                {
                     cout << "Invalid Input. Max number of bathrooms has to be bigger than or equal to the minimum." << endl;
                 }
             }
-            else{
+            else
+            {
                 cout << "Invalid Input" << endl;
             }
         }
-
-
-        while(valid_bed_min == false){
+        while(valid_bed_min == false)
+        {
             cout << "Mininum number of bedrooms: ";
             string temp;
             cin >> temp;
-            if(regex_match(temp, tester) == true){
+            if(regex_match(temp, tester) == true)
+            {
                 bed_min = stoi(temp);
                 valid_bed_min = true;
             }
-            else{
+            else
+            {
                 cout << "Invalid Input" << endl;
             }
         }
-
-
-        while(valid_bed_max == false){
+        while(valid_bed_max == false)
+        {
             cout << "Maximum number of bedrooms: ";
             string temp;
             cin >> temp;
-            if(regex_match(temp, tester) == true){
+            if(regex_match(temp, tester) == true)
+            {
                 bed_max = stoi(temp);
                 if(bed_max >= bed_min){
                     valid_bed_max = true;
                 }
-                else{
+                else
+                {
                     cout << "Invalid Input. Max number of bedrooms has to be bigger than or equal to the minimum." << endl;
                 }
             }
-            else{
+            else
+            {
                 cout << "Invalid Input" << endl;
             }
         }
-
-
-        while(valid_acre_min == false){
+        while(valid_acre_min == false)
+        {
             cout << "Mininum acreage: ";
             string temp;
             cin >> temp;
-            if(regex_match(temp, tester) == true){
+            if(regex_match(temp, tester) == true)
+            {
                 min_acres = stod(temp);
                 valid_acre_min = true;
             }
-            else{
+            else
+            {
                 cout << "Invalid Input" << endl;
             }
         }
-
-
-        while(valid_acre_max == false){
+        while(valid_acre_max == false)
+        {
             cout << "Maximum acreage: ";
             string temp;
             cin >> temp;
-            if(regex_match(temp, tester) == true){
+            if(regex_match(temp, tester) == true)
+            {
                 max_acres = stod(temp);
-                if(max_acres >= min_acres){
+                if(max_acres >= min_acres)
+                {
                     valid_acre_max = true;
                 }
-                else{
+                else
+                {
                     cout << "Invalid Input. Max acreage must be greater than or equal to the minimum." << endl;
                 }
             }
-            else{
+            else
+            {
                 cout << "Invalid Input" << endl;
             }
         }
-
-
-        while(valid_homesize_min == false){
+        while(valid_homesize_min == false)
+        {
             cout << "Minimum square footage of house (In Square feet): ";
             string temp;
             cin >> temp;
-            if(regex_match(temp, tester) == true){
+            if(regex_match(temp, tester) == true)
+            {
                 min_homesize = stoi(temp);
                 valid_homesize_min = true;
             }
-            else{
+            else
+            {
                 cout << "Invalid Input" << endl;
             }
         }
-
-
-        while(valid_homesize_max == false){
+        while(valid_homesize_max == false)
+        {
             cout << "Maximum square footage of house (In Square feet): ";
             string temp;
             cin >> temp;
-            if(regex_match(temp, tester) == true){
+            if(regex_match(temp, tester) == true)
+            {
                 max_homesize = stod(temp);
-                if(max_homesize >= min_homesize){
+                if(max_homesize >= min_homesize)
+                {
                     valid_homesize_max = true;
                 }
-                else{
+                else
+                {
                     cout << "Invalid Input. Max square footage of the house must be greater than or equal to the minimum." << endl;
                 }
             }
-            else{
+            else
+            {
                 cout << "Invalid Input" << endl;
             }
         }
-
-
-        while(valid_max_price == false){
+        while(valid_max_price == false)
+        {
             cout << "Maximum price: ";
             string temp;
             cin >> temp;
-            if(regex_match(temp, tester) == true){
+            if(regex_match(temp, tester) == true)
+            {
                 max_price = stoi(temp);
                 valid_max_price = true;
             }
-            else{
+            else
+            {
                 cout << "Invalid Input" << endl;
             }
         }
-
-
         static const regex importance_tester("^(10|[1-9])$");
-        while(valid_bathroom_importance == false){
+        while(valid_bathroom_importance == false)
+        {
             cout << "How important is having more bathrooms? (Enter a number 1-10): ";
             string temp;
             cin >> temp;
-            if(regex_match(temp, importance_tester) == true){
+            if(regex_match(temp, importance_tester) == true)
+            {
                 bathroom_importance = stoi(temp);
                 valid_bathroom_importance = true;
             }
-            else{
+            else
+            {
                 cout << "Invalid Input" << endl;
             }
         }
-
-
-        while(valid_bed_importance == false){
+        while(valid_bed_importance == false)
+        {
             cout << "How important is having more bedrooms? (Enter a number 1-10): ";
             string temp;
             cin >> temp;
-            if(regex_match(temp, importance_tester) == true){
+            if(regex_match(temp, importance_tester) == true)
+            {
                 bed_importance = stoi(temp);
                 valid_bed_importance = true;
             }
-            else{
+            else
+            {
                 cout << "Invalid Input" << endl;
             }
         }
-
-
-        while(valid_acre_importance == false){
+        while(valid_acre_importance == false)
+        {
             cout << "How important is having more acres? (Enter a number 1-10): ";
             string temp;
             cin >> temp;
-            if(regex_match(temp, importance_tester) == true){
+            if(regex_match(temp, importance_tester) == true)
+            {
                 acre_importance = stoi(temp);
                 valid_acre_importance = true;
             }
-            else{
+            else
+            {
                 cout << "Invalid Input" << endl;
             }
         }
-
-
-        while(valid_homesize_importance == false){
+        while(valid_homesize_importance == false)
+        {
             cout << "How important is having a larger home size (In square foot)? (Enter a number 1-10): ";
             string temp;
             cin >> temp;
-            if(regex_match(temp, importance_tester) == true){
+            if(regex_match(temp, importance_tester) == true)
+            {
                 homesize_Importance = stoi(temp);
                 valid_homesize_importance = true;
             }
-            else{
+            else
+            {
                 cout << "Invalid Input" << endl;
             }
         }
-
-
-        while(valid_price_importance == false){
+        while(valid_price_importance == false)
+        {
             cout << "How important is having a lower price? (Enter a number 1-10): ";
             string temp;
             cin >> temp;
@@ -283,23 +304,29 @@ public:
         }
     }
     void insert(string state_string,string city_string, string num_bathrooms_string, string num_bedrooms_string, string acres_string, string house_size_string, string price_string, int temp_counter){
-        if (state_string != State){
+        if (state_string != State)
+        {
             return;
         }
-        if (stod(num_bathrooms_string) > bathroom_max || stod(num_bathrooms_string) < bathroom_min){
+        if (stod(num_bathrooms_string) > bathroom_max || stod(num_bathrooms_string) < bathroom_min)
+        {
             return;
         }
-        if(stoi(num_bedrooms_string) > bed_max || stoi(num_bedrooms_string) < bed_min){
+        if(stoi(num_bedrooms_string) > bed_max || stoi(num_bedrooms_string) < bed_min)
+        {
             return;
         }
-        if(stod(acres_string) > max_acres || stod(acres_string) < min_acres) {
+        if(stod(acres_string) > max_acres || stod(acres_string) < min_acres)
+        {
             return;
 
         }
-        if(stoi(house_size_string) > max_homesize || stoi(house_size_string) < min_homesize){
+        if(stoi(house_size_string) > max_homesize || stoi(house_size_string) < min_homesize)
+        {
             return;
         }
-        if(stoi(price_string) > max_price){
+        if(stoi(price_string) > max_price)
+        {
             return;
         }
         int bath_score = 0;
@@ -307,28 +334,31 @@ public:
         int acreage_score = 0;
         int feet_score = 0;
         int price_score = 0;
-
         bath_score = (stod(num_bathrooms_string)/bathroom_max) * 10;
-        if(bath_score == 0){
+        if(bath_score == 0)
+        {
             bath_score = 1;
         }
         bed_score = (stod(num_bedrooms_string)/bed_max) * 10;
-        if(bed_score == 0){
+        if(bed_score == 0)
+        {
             bed_score = 1;
         }
         acreage_score = (stod(acres_string)/max_acres) * 10;
-        if(acreage_score == 0){
+        if(acreage_score == 0)
+        {
             acreage_score = 1;
         }
         feet_score = (stod(house_size_string)/max_homesize) * 10;
-        if(feet_score == 0){
+        if(feet_score == 0)
+        {
             feet_score = 1;
         }
         price_score = 10 - ((stod(price_string)/max_price) * 10);
-        if(price_score == 0){
+        if(price_score == 0)
+        {
             price_score = 1;
         }
-
         bed_score = bed_score * bed_importance;
         bath_score = bath_score * bathroom_importance;
         acreage_score = acreage_score * acre_importance;
@@ -337,8 +367,6 @@ public:
         int total_currentScore = 0;
         total_currentScore = bed_score + bath_score + acreage_score + feet_score + price_score;
         string current_house_name = "House " + to_string(temp_counter);
-        //cout << current_house_name << endl;
-        //cout << total_currentScore << endl;
         vector<string> home_attributes; //Order is: Home score, Price, State, City, Num of Beds, Num of Baths, Acres, and home size.
         home_attributes.push_back(to_string(total_currentScore));
         home_attributes.push_back(price_string);
@@ -349,15 +377,8 @@ public:
         home_attributes.push_back(acres_string);
         home_attributes.push_back(house_size_string);
         dataset[current_house_name] = home_attributes;
-        /*cout << num_bedrooms_string << endl;
-        cout << num_bathrooms_string << endl;
-        cout << acres_string << endl;
-        cout << city_string << endl;
-        cout << state_string << endl;
-        cout << house_size_string << endl;
-        cout << price_string << endl;*/
     }
-
+    
     vector<string> quicksort()
     {
         vector<string> houses;
@@ -365,7 +386,21 @@ public:
         {
             houses.push_back(itr->first);
         }
-        quicksort_helper(houses, 0, houses.size() - 1);
+        if (houses.size() <= 1) //not enough houses to sort
+        {
+            time_quick = 0;
+            quick_rankings = houses;
+        }
+        else
+        {
+            auto start_time = chrono::high_resolution_clock::now();
+            quicksort_helper(houses, 0, houses.size() - 1);
+            auto end_time = chrono::high_resolution_clock::now();
+            auto duration = chrono::duration_cast<chrono::microseconds>(end_time - start_time).count();
+            time_quick = duration;
+            quick_rankings = houses;
+            cout << "Time taken by the function: " << duration << " microseconds" << endl;
+        }
         return houses;
     }
     void quicksort_helper(vector<string>&houses, int left, int right)
@@ -373,47 +408,26 @@ public:
         if (left < right)
         {
             int p = partition(houses, left, right);
-            quicksort_helper(houses, left, p - 1);
-            quicksort_helper(houses, p + 1, right);
+            quicksort_helper(houses, left, p - 1); //sort left of pivot
+            quicksort_helper(houses, p + 1, right); //sort right of pivot
         }
     }
     int partition(vector<string>&houses, int left, int right)
     {
-        string pivot = houses[left];
+        string pivot = houses[left]; //set pivot to the first element of the vector
         int up = left;
         int down = right;
-        while(up < down)
+        while(up < down) //sort around the pivot
         {
-            if (stoi(dataset[houses[up]][0]) == stoi(dataset[pivot][0]))
+            while(up < right && stoi(dataset[houses[up]][0]) >= stoi(dataset[pivot][0]))
             {
-                while(up < right && stoi(dataset[houses[up]][1]) >= stoi(dataset[pivot][1]))
-                {
-                    up++;
-                }
+                up++;
             }
-            else
+            while(down > left && stoi(dataset[houses[down]][0]) <= stoi(dataset[pivot][0]))
             {
-                while(up < right && stoi(dataset[houses[up]][0]) >= stoi(dataset[pivot][0]))
-                {
-                    up++;
-                }
+                down--;
             }
-            if (stoi(dataset[houses[down]][0]) <= stoi(dataset[pivot][0]))
-            {
-                while(down > left && stoi(dataset[houses[down]][1]) <= stoi(dataset[pivot][1]))
-                {
-                    down--;
-                }
-            }
-            else
-            {
-                while(down > left && stoi(dataset[houses[down]][0]) <= stoi(dataset[pivot][0]))
-                {
-                    down--;
-                }
-            }
-            
-            if(up < down)
+            if (up < down)
             {
                 swap(houses, up, down);
             }
@@ -427,43 +441,6 @@ public:
         houses[right] = houses[left];
         houses[left] = temp;
     }
-    void QuickSortPrint()
-    {
-        auto start_time = chrono::high_resolution_clock::now();
-        quick_rankings = quicksort();
-        auto end_time = chrono::high_resolution_clock::now();
-        auto duration = chrono::duration_cast<chrono::microseconds>(end_time - start_time).count();
-        time_quick = duration;
-        string house;
-        for (int i = 0; i < 10; i++) 
-        {
-            house = quick_rankings[i];
-            cout << house << endl;
-            auto it = dataset.find(house);
-            if (it != dataset.end() && !it->second.empty()) 
-            {
-                string score_string = it->second[0];
-                cout << "Score: " << score_string << endl;
-                string price_string = it->second[1];
-                cout << "Price: " << price_string << endl;
-                string state_string = it->second[2];
-                cout << "State: " << state_string << endl;
-                string city_string = it->second[3];
-                cout << "City: " << city_string << endl;
-                string num_bedrooms_string = it->second[4];
-                cout << "Bedrooms: " << num_bedrooms_string << endl;
-                string num_bathrooms_string = it->second[5];
-                cout << "Bathroom: " << num_bathrooms_string << endl;
-                string acres_string = it->second[6];
-                cout << "Acres: " << acres_string << endl;
-                string house_size_string = it->second[7];
-                cout << "Square Footage of Home: " << house_size_string << endl;
-                cout << endl;
-            }
-        }
-        cout << "Time taken by the function: " << duration << " microseconds" << endl;
-    }
-
     vector<string> MergeSort()
     {
         vector<string> merge_sort_vector;
@@ -471,8 +448,22 @@ public:
         {
             merge_sort_vector.push_back(it->first);
         }
-        MergeSortFunction(dataset,merge_sort_vector,0,merge_sort_vector.size() - 1);
-        return merge_sort_vector;
+        if (merge_sort_vector.size() <= 1) //not enough houses to sort
+        {
+            time_quick = 0;
+            quick_rankings = merge_sort_vector;
+        }
+        else
+        {
+            auto start_time = chrono::high_resolution_clock::now();
+            MergeSortFunction(dataset,merge_sort_vector,0,merge_sort_vector.size() - 1);
+            auto end_time = chrono::high_resolution_clock::now();
+            auto duration = chrono::duration_cast<chrono::microseconds>(end_time - start_time).count();
+            time_merge = duration;
+            cout << "Time taken by the function: " << duration << " microseconds" << endl;
+        }
+        merge_rankings = merge_sort_vector;
+        return merge_rankings;
     }
     void MergeSortFunction(unordered_map<string,vector<string>> &DataSetMap,vector<string> &DataSetVector,int left, int right)
     {
@@ -550,54 +541,22 @@ public:
             }
         }
     }
-    void MergeSortPrint()
+    bool compare_results() //checks if the results from merge and quick sort were the same
     {
-        auto start_time = chrono::high_resolution_clock::now();
-        merge_rankings = MergeSort();
-        auto end_time = chrono::high_resolution_clock::now();
-        auto duration = chrono::duration_cast<chrono::microseconds>(end_time - start_time).count();
-        time_merge = duration;
-        for(int i = 0; i < 10; i++)
+        for(int i = 0; i < 3; i++)
         {
-            //Order is: Home score, Price, State, City, Num of Beds, Num of Baths, Acres, and home size.
-            string housenum = merge_rankings[i];
-            cout << housenum << endl;
-            auto it = dataset.find(housenum);
-            if (it != dataset.end() && !it->second.empty()) {
-                string score_string = it->second[0];
-                cout << "Score: " << score_string << endl;
-                string price_string = it->second[1];
-                cout << "Price: " <<  price_string << endl;
-                string state_string = it->second[2];
-                cout << "State: " << state_string << endl;
-                string city_string = it->second[3];
-                cout << "City: " << city_string << endl;
-                string num_bedrooms_string = it->second[4];
-                cout << "Bedrooms: " << num_bedrooms_string << endl;
-                string num_bathrooms_string = it->second[5];
-                cout << "Bathroom: " << num_bathrooms_string << endl;
-                string acres_string = it->second[6];
-                cout << "Acres: " << acres_string << endl;
-                string house_size_string = it->second[7];
-                cout << "Square Footage of Home: " << house_size_string << endl;
-                cout << endl;
+            if (stoi(dataset[merge_rankings[i]][0]) != stoi(dataset[quick_rankings[i]][0]))
+            {
+                return false;
             }
-        }
-        cout << "Time taken by the function: " << duration << " microseconds" << endl;
-    }
-    void compare_results()
-    {
-        for (auto itr = dataset.begin(); itr != dataset.end(); itr++)
-        {
-            cout << itr->first << " Score: " << itr->second[0] << " Price: " << itr->second[1] << endl;
-        }
-        if (merge_rankings == quick_rankings)
-        {
-            cout << "yippee it worked" << endl;
-        }
-        else
-        {
-            cout << "failure" << endl;
+            else if (stoi(dataset[merge_rankings[i]][1]) != stoi(dataset[quick_rankings[i]][1]))
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
         }
     }
 };
@@ -635,10 +594,11 @@ int main(){
         }
         T.insert(state_string, city_string,num_bathrooms_string, num_bedrooms_string, acres_string,house_size_string, price_string,temp_counter);
     }
-    T.MergeSortPrint();
-    cout << endl;
-    T.QuickSortPrint();
-    cout << endl;
-    T.compare_results();
+    T.MergeSort();
+    T.quicksort();
+    if (T.compare_results())
+    {
+        cout << "yippee!" << endl;
+    }
     return 0;
 }
