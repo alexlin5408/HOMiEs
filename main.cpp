@@ -50,7 +50,6 @@ private:
     vector<string> quick_rankings;
     vector<string> merge_sort_vector;
 public:
-
     void insert(string state_string,string city_string, string num_bathrooms_string, string num_bedrooms_string, string acres_string, string house_size_string, string price_string, int temp_counter)
     //insert function that takes data form dataset and insert them if they meet user parameters
     {
@@ -234,7 +233,7 @@ public:
         Homeless_IMAGE_image.setPosition(results_window.getSize().x/2.0f,results_window.getSize().y/2.0f);
 
         sf::Texture House_1;
-        House_1.loadFromFile("Files/Images/House_1.jpg");
+        House_1.loadFromFile("Files/Images/Diamond1_House.png");
         sf::Sprite House_1image(House_1);
         sf::FloatRect House_1Bounds = House_1image.getLocalBounds();
         House_1image.setOrigin(House_1Bounds.left + House_1Bounds.width / 2.0f,House_1Bounds.top  + House_1Bounds.height / 2.0f);
