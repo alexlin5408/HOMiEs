@@ -44,11 +44,16 @@ private:
     bool valid_price_importance = false;
     string State;
     string city;
-    int time_merge;
+    long long time_merge;
+    long long time_quick;
+    vector<string> merge_rankings;
+    vector<string> quick_rankings;
     vector<string> merge_sort_vector;
-
 public:
-    void insert(string state_string,string city_string, string num_bathrooms_string, string num_bedrooms_string, string acres_string, string house_size_string, string price_string, int temp_counter){
+
+    void insert(string state_string,string city_string, string num_bathrooms_string, string num_bedrooms_string, string acres_string, string house_size_string, string price_string, int temp_counter)
+    //insert function that takes data form dataset and insert them if they meet user parameters
+    {
         if (state_string != State){
             return;
         }
@@ -60,6 +65,7 @@ public:
         }
         if(stod(acres_string) > max_acres || stod(acres_string) < min_acres) {
             return;
+
         }
         if(stoi(house_size_string) > max_homesize || stoi(house_size_string) < min_homesize){
             return;
@@ -114,7 +120,9 @@ public:
         dataset[current_house_name] = home_attributes;
     }
 
-    void filter_data(){
+    void filter_data()
+    //function that goes through data in Dataset and places each values into insert function
+    {
         fstream file("Files/DataSet.csv");
         string line;
         int temp_counter = 0;
@@ -145,17 +153,18 @@ public:
             insert(state_string, city_string,num_bathrooms_string, num_bedrooms_string, acres_string,house_size_string, price_string,temp_counter);
         }
         MergeSort();
+        quicksort();
     }
 
     void results(){
         filter_data();
-      sf::RenderWindow results_window(sf::VideoMode(1200, 1000), "HOMIE");
-      sf::RectangleShape results_rect;
-      results_rect.setSize(sf::Vector2f(1200, 1000));
-      results_rect.setPosition(0, 0);
-      results_rect.setOrigin(0, 0);
-      results_rect.setFillColor(sf::Color(137, 148, 153));
-      results_window.setFramerateLimit(30);
+        sf::RenderWindow results_window(sf::VideoMode(1200, 1000), "HOMIE");
+        sf::RectangleShape results_rect;
+        results_rect.setSize(sf::Vector2f(1200, 1000));
+        results_rect.setPosition(0, 0);
+        results_rect.setOrigin(0, 0);
+        results_rect.setFillColor(sf::Color(137, 148, 153));
+        results_window.setFramerateLimit(30);
 
         sf::Font font;
         font.loadFromFile("Files/font.ttf");
@@ -191,24 +200,24 @@ public:
         Noresults.setPosition(results_window.getSize().x/2.0f,results_window.getSize().y/2.0f);
 
         sf::Text Merge_Sort_TIME;
-        Merge_Sort_TIME.setString("Merge Sort Time: ");
+        Merge_Sort_TIME.setString("Merge Sort Time: " + to_string(time_merge) + " milliseconds");
         Merge_Sort_TIME.setFont(font);
         Merge_Sort_TIME.setCharacterSize(20);
         Merge_Sort_TIME.setFillColor(sf::Color::White);
         Merge_Sort_TIME.setStyle(sf::Text::Bold);
         sf::FloatRect Merge_Sort_TIMERect = Merge_Sort_TIME.getLocalBounds();
         Merge_Sort_TIME.setOrigin(Merge_Sort_TIMERect.left + Merge_Sort_TIMERect.width / 2.0f,Merge_Sort_TIMERect.top  + Merge_Sort_TIMERect.height / 2.0f);
-        Merge_Sort_TIME.setPosition(results_window.getSize().x/2.0f - 425,results_window.getSize().y/2.0f + 230);
+        Merge_Sort_TIME.setPosition(results_window.getSize().x/2.0f - 325,results_window.getSize().y/2.0f + 230);
 
         sf::Text Quick_Sort_TIME;
-        Quick_Sort_TIME.setString("Quick Sort Time: ");
+        Quick_Sort_TIME.setString("Quick Sort Time: " + to_string(time_quick) + " milliseconds");
         Quick_Sort_TIME.setFont(font);
         Quick_Sort_TIME.setCharacterSize(20);
         Quick_Sort_TIME.setFillColor(sf::Color::White);
         Quick_Sort_TIME.setStyle(sf::Text::Bold);
-        sf::FloatRect Quick_Sort_TIME_TIMERect = Quick_Sort_TIME.getLocalBounds();
+        sf::FloatRect Quick_Sort_TIME_TIMERect = Merge_Sort_TIME.getLocalBounds();
         Quick_Sort_TIME.setOrigin(Quick_Sort_TIME_TIMERect.left + Quick_Sort_TIME_TIMERect.width / 2.0f,Quick_Sort_TIME_TIMERect.top  + Quick_Sort_TIME_TIMERect.height / 2.0f);
-        Quick_Sort_TIME.setPosition(results_window.getSize().x/2.0f - 425,results_window.getSize().y/2.0f + 200);
+        Quick_Sort_TIME.setPosition(results_window.getSize().x/2.0f - 325,results_window.getSize().y/2.0f + 200);
 
         sf::Texture Reset_Button;
         Reset_Button.loadFromFile("Files/Images/HOMERESET_B.png");
@@ -373,7 +382,11 @@ public:
             results_window.display();
         }
     }
-    void reset(){
+
+
+    void reset()
+    //reset function that set values back to default ready for next input
+    {
         min_acres = 0.00;
         max_acres = 0.00;
         max_homesize = 0;
@@ -391,26 +404,31 @@ public:
         valid_homesize_min = false;
         valid_homesize_max = false;
         valid_max_price = false;
-         valid_acre_min = false;
-         valid_acre_max = false;
-         valid_state = false;
-         valid_bath_min = false;
-         valid_bath_max = false;
-         valid_bed_min = false;
-         valid_bed_max = false;
-         valid_bed_importance = false;
-         valid_bathroom_importance = false;
-         valid_homesize_importance = false;
-         valid_acre_importance = false;
-         valid_price_importance = false;
-         State = "";
-         city = "";
-         time_merge = 0;
+        valid_acre_min = false;
+        valid_acre_max = false;
+        valid_state = false;
+        valid_bath_min = false;
+        valid_bath_max = false;
+        valid_bed_min = false;
+        valid_bed_max = false;
+        valid_bed_importance = false;
+        valid_bathroom_importance = false;
+        valid_homesize_importance = false;
+        valid_acre_importance = false;
+        valid_price_importance = false;
+        State = "";
+        city = "";
+        time_merge = 0;
+        time_quick = 0;
         dataset.clear();
+        merge_rankings.clear();
         merge_sort_vector.clear();
+        quick_rankings.clear();
     }
 
-    void main_screen(){
+    void main_screen()
+    //main screen function that displays survey to all for user to insert paramters
+    {
         sf::RenderWindow window(sf::VideoMode(1200, 1000), "HOMIE");
         sf::RectangleShape rect;
         rect.setSize(sf::Vector2f(1200,1000));
@@ -615,9 +633,9 @@ public:
                     if (event.key.code == sf::Mouse::Left) {
                         sf::Vector2i pos = sf::Mouse::getPosition(window);
                         if (Reset_Button_image.getGlobalBounds().contains(static_cast<float>(pos.x), static_cast<float>(pos.y))){
-                           reset();
-                           currentString = "";
-                           State_Text.setString("Enter a State: ");
+                            reset();
+                            currentString = "";
+                            State_Text.setString("Enter a State: ");
                         }
                     }
                 }
@@ -842,7 +860,6 @@ public:
                     }
                     else if(valid_price_importance == false){
                         if(regex_match(currentString, importance_tester) == true){
-                            cout << "bones" << endl;
                             price_importance = stoi(currentString);
                             currentString = "";
                             valid_price_importance = true;
@@ -911,30 +928,110 @@ public:
         }
     }
 
-    vector<string> MergeSort()
+    vector<string> quicksort()
+    //function that places dataset in vector then calls quick sort function
+    //While also keeping track of time it take for quicksort to occur
     {
-        for(auto it = dataset.begin(); it != dataset.end(); ++it)
+        vector<string> houses;
+        for (auto itr = dataset.begin(); itr != dataset.end(); itr++) {
+            houses.push_back(itr->first);
+        }
+        if (houses.size() <= 1) //not enough houses to sort
         {
+            time_quick = 0;
+            quick_rankings = houses;
+        } else {
+            auto start_time = chrono::high_resolution_clock::now();
+            quicksort_helper(houses, 0, houses.size() - 1);
+            auto end_time = chrono::high_resolution_clock::now();
+            auto duration = chrono::duration_cast<chrono::microseconds>(end_time - start_time).count();
+            time_quick = duration;
+            quick_rankings = houses;
+        }
+        return houses;
+    }
+
+    void quicksort_helper(vector<string> &houses, int left, int right)
+    //function that recusivly call quicksort_helper until left value is less than right ie: sorted
+    {
+        if (left < right) {
+            int p = partition(houses, left, right);
+            quicksort_helper(houses, left, p - 1); //sort left of pivot
+            quicksort_helper(houses, p + 1, right); //sort right of pivot
+        }
+    }
+
+    int partition(vector<string> &houses, int left, int right)
+    //function that takes vectors and swaps houses based off value compare to pivot
+    {
+        string pivot = houses[left]; //set pivot to the first element of the vector
+        int up = left;
+        int down = right;
+        while (up < down) //sort around the pivot
+        {
+            while (up < right && stoi(dataset[houses[up]][0]) >= stoi(dataset[pivot][0])) {
+                up++;
+            }
+            while (down > left && stoi(dataset[houses[down]][0]) <= stoi(dataset[pivot][0])) {
+                down--;
+            }
+            if (up < down) {
+                swap(houses, up, down);
+            }
+        }
+        swap(houses, left, down);
+        return down;
+    }
+
+    void swap(vector<string> &houses, int left, int right)
+    //Swaps the postion of the houses at left and right index
+    {
+        string temp = houses[right];
+        houses[right] = houses[left];
+        houses[left] = temp;
+    }
+
+
+    vector<string> MergeSort()
+    //function that places values in a vector then call merge sort for that vector.
+    // While also taking the time for merge sort function to occur
+    {
+        for (auto it = dataset.begin(); it != dataset.end(); ++it) {
             merge_sort_vector.push_back(it->first);
         }
-        MergeSortFunction(dataset,merge_sort_vector,0,merge_sort_vector.size() - 1);
-        return merge_sort_vector;
+
+        if (merge_sort_vector.size() <= 1) //not enough houses to sort
+        {
+            time_merge = 0;
+            merge_rankings = merge_sort_vector;
+        } else {
+            auto start_time = chrono::high_resolution_clock::now();
+            MergeSortFunction(dataset, merge_sort_vector, 0, merge_sort_vector.size() - 1);
+            auto end_time = chrono::high_resolution_clock::now();
+            auto duration = chrono::duration_cast<chrono::microseconds>(end_time - start_time).count();
+            time_merge = duration;
+        }
+        merge_rankings = merge_sort_vector;
+        return merge_rankings;
     }
 
-    void MergeSortFunction(unordered_map<string,vector<string>> &DataSetMap,vector<string> &DataSetVector,int left, int right)
+    void MergeSortFunction(unordered_map<string, vector<string>> &DataSetMap, vector<string> &DataSetVector, int left,
+                           int right)
+    //function that recusively  call mergesort until left value is less than right ie: sorted
     {
-        if(left < right)
-        {
+        if (left < right) {
             int mid = left + (right - left) / 2;
 
-            MergeSortFunction(DataSetMap, DataSetVector,left,mid);
-            MergeSortFunction(DataSetMap,DataSetVector,mid + 1,right);
+            MergeSortFunction(DataSetMap, DataSetVector, left, mid);
+            MergeSortFunction(DataSetMap, DataSetVector, mid + 1, right);
 
-            HelperMerge(DataSetMap,DataSetVector,left,mid,right);
+            HelperMerge(DataSetMap, DataSetVector, left, mid, right);
         }
     }
 
-    void HelperMerge(unordered_map<string,vector<string>> &DataSetMap,vector<string>& Houses, int left, int mid, int right)
+    void
+    HelperMerge(unordered_map<string, vector<string>> &DataSetMap, vector<string> &Houses, int left, int mid, int right)
+    //Function that performs the merge sort by comparing values and moving location of data based off of comparison
     {
         int n1 = mid - left + 1;
         int n2 = right - mid;
@@ -946,12 +1043,13 @@ public:
         int k = left;
 
         while (i < n1 && j < n2) {
-            if (compareHouses(DataSetMap,leftVect[i], rightVect[j])) {
+            if (compareHouses(DataSetMap, leftVect[i], rightVect[j])) {
                 Houses[k++] = leftVect[i++];
             } else {
                 Houses[k++] = rightVect[j++];
             }
         }
+
         while (i < n1) {
             Houses[k++] = leftVect[i++];
         }
@@ -959,9 +1057,13 @@ public:
         while (j < n2) {
             Houses[k++] = rightVect[j++];
         }
+
+
     }
 
-    bool compareHouses(unordered_map<string,vector<string>> &DataSetMap,string &house1, string &house2) {
+    bool compareHouses(unordered_map<string, vector<string>> &DataSetMap, string &house1, string &house2)
+    //function to compare houses first based off score then based off price if scores are equal
+    {
 
         int score1value;
         int score2value;
@@ -978,23 +1080,34 @@ public:
         string price2 = DataSetMap[house2][1];;
         price2value = stoi(price2);
 
+
         if (score1value > score2value) {
             return true;
         } else if (score1value < score2value) {
             return false;
-        }
-        else
-        {
-            if(price1value < price2value)
-            {
+        } else {
+            if (price1value < price2value) {
                 return true;
-            }
-            else
-            {
+            } else {
                 return false;
             }
         }
     }
+
+    bool compare_results()
+    //function to checks if the results from merge and quick sort are the same
+    {
+        for (int i = 0; i < 3; i++) {
+            if (stoi(dataset[merge_rankings[i]][0]) != stoi(dataset[quick_rankings[i]][0])) {
+                return false;
+            } else if (stoi(dataset[merge_rankings[i]][1]) != stoi(dataset[quick_rankings[i]][1])) {
+                return false;
+            } else {
+                return true;
+            }
+        }
+    }
+
 };
 
 int main(){
